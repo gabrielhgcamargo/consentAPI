@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  CPF String  @id @unique
+  name String
+  email String @unique
+  password String 
+  consents Consent[] @relation("document")
+
+  @@map("users")
+}
+
+model BusinessEntity {
+  CNPJ String  @id @unique
+  name String
+  consents Consent[] @relation("document")
+
+  @@map("businessEntities")
+}
+
+model Permissions{
+  productName String @id @unique 
+  data Consent[]
+
+  @@map("permissions")
+}
+
+model Consent {
+
+  consentId String @unique @id @default(uuid())
+  creationDateTime DateTime @default(now())
+  status String  @default("AWAITING_AUTHORISATION")
+  statusUpdateDateTime DateTime @updatedAt
+
+  loggedUser User @relation("document", fields: [identification], references: [CPF])
+  identification String 
+
+  businessEntity BusinessEntity @relation("document", fields: [identification_], references: [CNPJ])
+  identification_ String 
+
+  permissions Permissions[]
+
+  expirationDateTime DateTime
+  transactionFromDateTime DateTime
+  transactionToDateTime DateTime
+
+  @@map("consent")
+}
