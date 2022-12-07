@@ -1,8 +1,17 @@
+type Permission = {};
 export interface CreateConsentDTO {
-    loggedUser: string,
-    businessEntity: string,
-    permissions: object,
-    expirationDateTime: string,
-    transactionFromDateTime: string,
-    transactionToDateTime: string
+  loggedUser: {
+    CPF: string;
+    name: string;
+    email: string;
+    password: string;
+  };
+  businessEntity: {
+    CNPJ: string;
+    name: string;
+  };
+  permissions: any;
+  expirationDateTime: string;
+  transactionFromDateTime: string;
+  transactionToDateTime: string;
 }
