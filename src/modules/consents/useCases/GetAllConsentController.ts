@@ -4,9 +4,9 @@ import { GetAllConsentUseCase } from "./GetAllConsentUseCase";
 
 export class GetAllConsentController {
   async handle(req: Request, res: Response) {
-    const getConsentByIdUseCase = new GetAllConsentUseCase();
+    const getAllConsentUseCase = new GetAllConsentUseCase();
 
-    const result = await getConsentByIdUseCase.execute();
+    const result = await getAllConsentUseCase.execute();
 
     return res.status(200).json(result);
   }
