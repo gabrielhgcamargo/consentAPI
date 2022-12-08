@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAuthenticatedDocument } from "../middlewares/ensureAuthenticatedDocument";
+import { ensureAuthenticatedCreate } from "../middlewares/ensureAuthenticatedCreate";
 import { CreateConsentController } from "../modules/consents/useCases/CreateConsentController";
 import { GetAllConsentController } from "../modules/consents/useCases/GetAllConsentController";
 import { prisma } from "../prisma/client";
@@ -11,7 +12,11 @@ const getAllConsentController = new GetAllConsentController();
 
 const consentRoutes = Router();
 
-consentRoutes.post("/", createConsentController.handle);
+consentRoutes.post(
+  "/",
+  ensureAuthenticatedCreate,
+  createConsentController.handle
+);
 consentRoutes.get("/", getAllConsentController.handle);
 
 consentRoutes.get(

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { decode, verify } from "jsonwebtoken";
 import { prisma } from "../prisma/client";
 
-export async function ensureAuthenticatedDocument(
+export async function ensureAuthenticatedCreate(
   request: Request,
   response: Response,
   next: NextFunction
@@ -10,13 +10,13 @@ export async function ensureAuthenticatedDocument(
   const authToken = request.headers.authorization;
 
   const userCpf = request.body;
-  const documentParam = userCpf["document"];
+  const documentBody = userCpf["loggedUser"]["CPF"];
 
-  console.log(userCpf);
+  console.log(documentBody);
 
   const cpfExists = await prisma.user.findFirst({
     where: {
-      CPF: documentParam,
+      CPF: documentBody,
     },
   });
 
@@ -36,7 +36,7 @@ export async function ensureAuthenticatedDocument(
         return response.status(401).send({
           message:
             "Authenticated but the document " +
-            documentParam +
+            documentBody +
             " is not yours. You can just make requisitions to your own document.",
         });
       }
