@@ -24,6 +24,38 @@ export class CreateConsentController {
       transactionToDateTime,
     });
 
-    return res.status(201).send();
+    const consent = await prisma.consent.findFirst({
+      where: {
+        loggedUser,
+        businessEntity,
+        expirationDateTime,
+        transactionFromDateTime,
+        transactionToDateTime,
+      },
+      include: {
+        permissions: {
+          select: {
+            productName: true,
+          },
+        },
+      },
+    });
+
+    return res.status(201).send({
+      data: consent,
+      links: {
+        self: "https://65pwcy7ng5.execute-api.us-east-1.amazonaws.com//open-insurance/consents/v1",
+        first:
+          "https://65pwcy7ng5.execute-api.us-east-1.amazonaws.com//open-insurance/consents/v1",
+        prev: "https://65pwcy7ng5.execute-api.us-east-1.amazonaws.com//open-insurance/consents/v1",
+        next: "https://65pwcy7ng5.execute-api.us-east-1.amazonaws.com//open-insurance/consents/v1",
+        last: "https://65pwcy7ng5.execute-api.us-east-1.amazonaws.com//open-insurance/consents/v1",
+      },
+      meta: {
+        totalPages: 1,
+        totalRecords: 1,
+        requestDateTime: "2022-11-08T05:21:04.926Z",
+      },
+    });
   }
 }

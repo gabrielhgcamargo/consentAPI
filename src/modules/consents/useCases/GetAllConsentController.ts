@@ -8,6 +8,6 @@ export class GetAllConsentController {
 
     const result = await getAllConsentUseCase.execute();
 
-    return res.status(200).json(result);
+    return res.status(201).send(result);
   }
 }

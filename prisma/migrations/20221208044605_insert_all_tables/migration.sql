@@ -35,6 +35,24 @@ CREATE TABLE "consent" (
     CONSTRAINT "consent_businessEntityCNPJ_fkey" FOREIGN KEY ("businessEntityCNPJ") REFERENCES "businessEntities" ("CNPJ") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- CreateTable
+CREATE TABLE "links" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "self" TEXT NOT NULL,
+    "first" TEXT NOT NULL,
+    "prev" TEXT NOT NULL,
+    "next" TEXT NOT NULL,
+    "last" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "meta" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "totalPages" INTEGER NOT NULL,
+    "totalRecords" INTEGER NOT NULL,
+    "requestDateTime" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_CPF_key" ON "users"("CPF");
 
