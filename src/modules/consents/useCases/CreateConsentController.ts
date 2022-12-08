@@ -44,7 +44,7 @@ export class CreateConsentController {
     });
 
     if (!consent) {
-      return res.status(404).send({ message: "CPNJ/CPF not found!" });
+      return res.status(404).send({ message: "CPF/CPNJ not found!" });
     }
 
     return res.status(201).send({

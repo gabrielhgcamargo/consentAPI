@@ -1,0 +1,345 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ConsentAPI",
+    "description": "dassssssssssssssssssssssssssssssssssssssssssssss - Open Insurance",
+    "contact": {
+      "email": "gabriel-henrique.camargo@gft.com"
+    },
+    "version": "1.0.0       "
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/v1",
+      "description": "Test API"
+    }
+  ],
+  "paths": {
+    "/consents": {
+      "post": {
+        "summary": "Register a Consent",
+        "description": "This route is responsible for registering new consents. Copy in the response, the value from the field 'tokenParaAutorizacao' to authorise later this consent.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schema/Consent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - Field(s) with unacceptable value or Invalid CPF."
+          },
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/ResponsePOST"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Find all authorised consents",
+        "description": "This route is responsible for find all authorised consents.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/ConsentResponseWithoutToken"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/consents/{id}": {
+      "get": {
+        "summary": "Find a consent by ID",
+        "description": "This route is responsible for find a authorised consent by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The user ID.",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Consent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/ConsentResponseWithoutToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Only numeric ID in the path!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Find a consent by ID",
+        "description": "This route is responsible for find a authorised consent by ID.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schema/Consent"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The user ID.",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Consent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Only numeric ID in the path!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Find a consent by ID",
+        "description": "This route is responsible for find a authorised consent by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The user ID.",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Consent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Only numeric ID in the path!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/consentsAprove/{id}": {
+      "put": {
+        "summary": "Aprove the consent",
+        "description": "This route is responsible for authorise the consent.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The user ID.",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Message"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schema": {
+      "Consent": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "telefone": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponsePOST": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "tokenParaAutorizacao": {
+            "type": "string"
+          }
+        }
+      },
+      "ConsentResponseWithoutToken": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "telefone": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

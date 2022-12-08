@@ -2,6 +2,9 @@ import { Consent } from "@prisma/client";
 import { prisma } from "../../../prisma/client";
 import { CreateConsentDTO } from "../dtos/CreateConsentDTO";
 import { v4 as uuidv4 } from "uuid";
+const {
+  authenticatedUser,
+} = require("../../authenticateUser/useCases/AuthenticateUserController");
 
 export class CreateConsentUseCase {
   async execute({

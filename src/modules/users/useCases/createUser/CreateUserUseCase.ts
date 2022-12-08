@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { prisma } from "../../../../prisma/client";
 import { CreateUserDTO } from "../../dtos/CreateUserDTO";
+import { hash } from "bcrypt";
 
 export class CreateUserUseCase {
   async execute({ CPF, name, email, password }: CreateUserDTO) {
@@ -26,13 +27,15 @@ export class CreateUserUseCase {
       return "emailAlredyRegistered";
     }
 
+    const passwordHash = await hash(password, 8);
+
     //Create User
     const user = await prisma.user.create({
       data: {
         CPF,
         name,
         email,
-        password,
+        password: passwordHash,
       },
     });
 
