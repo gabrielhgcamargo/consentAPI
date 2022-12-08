@@ -6,9 +6,9 @@ import { userRoutes } from "./UserRoutes";
 
 const routes = Router();
 
-routes.use("/users", userRoutes);
-routes.use("/businessEntity", businessEntityRoutes);
-routes.use("/consent", consentRoutes);
-routes.use("/permission", permissionRoutes);
+routes.use("/open-insurance/users/v1", userRoutes);
+routes.use("/open-insurance/businessEntity/v1", businessEntityRoutes);
+routes.use("/open-insurance/consents/v1", consentRoutes);
+routes.use("/open-insurance/permission/v1", permissionRoutes);
 
 export { routes };

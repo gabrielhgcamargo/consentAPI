@@ -3,13 +3,28 @@ import { prisma } from "../../../../prisma/client";
 import { CreateUserDTO } from "../../dtos/CreateUserDTO";
 
 export class CreateUserUseCase {
-  async execute({ CPF, name, email, password }: CreateUserDTO): Promise<User> {
+  async execute({ CPF, name, email, password }: CreateUserDTO) {
     // Verify if USER already exists
-    const userAlreadyExists = await prisma.user.findUnique({
+
+    const cpfAlredyRegistered = await prisma.user.findUnique({
+      where: {
+        CPF,
+      },
+    });
+
+    if (cpfAlredyRegistered) {
+      return "cpfAlredyRegistered";
+    }
+
+    const emailAlredyRegistered = await prisma.user.findUnique({
       where: {
         email,
       },
     });
+
+    if (emailAlredyRegistered) {
+      return "emailAlredyRegistered";
+    }
 
     //Create User
     const user = await prisma.user.create({
