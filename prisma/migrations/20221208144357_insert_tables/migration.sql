@@ -35,24 +35,6 @@ CREATE TABLE "consent" (
     CONSTRAINT "consent_businessEntityCNPJ_fkey" FOREIGN KEY ("businessEntityCNPJ") REFERENCES "businessEntities" ("CNPJ") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- CreateTable
-CREATE TABLE "links" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "self" TEXT NOT NULL,
-    "first" TEXT NOT NULL,
-    "prev" TEXT NOT NULL,
-    "next" TEXT NOT NULL,
-    "last" TEXT NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "meta" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "totalPages" INTEGER NOT NULL,
-    "totalRecords" INTEGER NOT NULL,
-    "requestDateTime" TEXT NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "users_CPF_key" ON "users"("CPF");
 
@@ -61,6 +43,3 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "businessEntities_CNPJ_key" ON "businessEntities"("CNPJ");
-
--- CreateIndex
-CREATE UNIQUE INDEX "consent_consentId_key" ON "consent"("consentId");

@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
-import { CreateConsentUseCase } from "./CreateConsentUseCase";
 import { prisma } from "../../../prisma/client";
+import { CreateConsentDTO } from "../dtos/CreateConsentDTO";
+import { v4 as uuidv4 } from "uuid";
+import { CreateConsentUseCase } from "./CreateConsentUseCase";
 
 export class CreateConsentController {
   async handle(req: Request, res: Response) {
@@ -40,6 +42,10 @@ export class CreateConsentController {
         },
       },
     });
+
+    if (!consent) {
+      return res.status(404).send({ message: "CPNJ/CPF not found!" });
+    }
 
     return res.status(201).send({
       data: consent,

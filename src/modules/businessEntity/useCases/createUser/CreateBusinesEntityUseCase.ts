@@ -1,5 +1,4 @@
 import { BusinessEntity, User } from "@prisma/client";
-import { AppError } from "../../../../errors/AppError";
 import { prisma } from "../../../../prisma/client";
 import { CreateBusinessEntityDTO } from "../../dtos/CreateBusinessEntityDTO";
 
@@ -14,10 +13,6 @@ export class CreateBusinesEntityUseCase {
         CNPJ,
       },
     });
-
-    if (businessEntityAlreadyExists) {
-      throw new AppError("BusninessEntity already exists!");
-    }
 
     //Create User
     const businessEntity = await prisma.businessEntity.create({

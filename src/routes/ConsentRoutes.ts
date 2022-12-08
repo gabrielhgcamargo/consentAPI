@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { AppError } from "../errors/AppError";
 import { CreateConsentController } from "../modules/consents/useCases/CreateConsentController";
 import { GetAllConsentController } from "../modules/consents/useCases/GetAllConsentController";
 import { prisma } from "../prisma/client";

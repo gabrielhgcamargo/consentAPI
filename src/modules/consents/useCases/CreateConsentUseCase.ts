@@ -1,5 +1,4 @@
 import { Consent } from "@prisma/client";
-import { AppError } from "../../../errors/AppError";
 import { prisma } from "../../../prisma/client";
 import { CreateConsentDTO } from "../dtos/CreateConsentDTO";
 import { v4 as uuidv4 } from "uuid";
@@ -21,7 +20,7 @@ export class CreateConsentUseCase {
     });
 
     if (!cpfExists) {
-      throw new AppError("CPF not registered!");
+      return "cpfDoesNotExists";
     }
 
     // verify if CNPF exists
@@ -32,7 +31,7 @@ export class CreateConsentUseCase {
     });
 
     if (!cnpjExists) {
-      throw new AppError("CNPJ not registered!");
+      return "cnpjDoesNotExists";
     }
 
     const prefix = "urn:mapfre:";
@@ -45,17 +44,13 @@ export class CreateConsentUseCase {
       data: {
         consentId: completeId,
         loggedUser: {
-          create: {
-            CPF: loggedUser.CPF,
-            name: loggedUser.name,
-            email: loggedUser.email,
-            password: loggedUser.password,
+          connect: {
+            CPF: cpfExists.CPF,
           },
         },
         businessEntity: {
-          create: {
-            CNPJ: businessEntity.CNPJ,
-            name: businessEntity.name,
+          connect: {
+            CNPJ: cnpjExists.CNPJ,
           },
         },
         permissions: {
