@@ -88,4 +88,20 @@ consentRoutes.put("/:id", async (req: Request, res: Response) => {
   });
 });
 
+consentRoutes.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const consent = await prisma.consent.delete({
+    where: { consentId: String(id) },
+  });
+
+  if (!consent) {
+    return res.status(404).send({ message: "Consent not found!" });
+  }
+
+  return res.status(200).send({
+    message: "Consent with the ID = " + id + " deleted with success.",
+  });
+});
+
 export { consentRoutes };

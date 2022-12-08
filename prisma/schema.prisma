@@ -32,7 +32,7 @@ model BusinessEntity {
 model Permissions {
   id               String  @id @default(uuid())
   productName      String
-  Consent          Consent @relation(fields: [consentConsentId], references: [consentId])
+  Consent          Consent @relation(fields: [consentConsentId], references: [consentId], onDelete: Cascade)
   consentConsentId String
 
   @@map("permissions")
@@ -44,8 +44,8 @@ model Consent {
   status               String   @default("AWAITING_AUTHORISATION")
   statusUpdateDateTime DateTime @updatedAt
 
-  loggedUser     User           @relation(fields: [userCPF], references: [CPF])
-  businessEntity BusinessEntity @relation(fields: [businessEntityCNPJ], references: [CNPJ])
+  loggedUser     User           @relation(fields: [userCPF], references: [CPF], onDelete: Cascade)
+  businessEntity BusinessEntity @relation(fields: [businessEntityCNPJ], references: [CNPJ], onDelete: Cascade)
   permissions    Permissions[]
 
   expirationDateTime      DateTime
