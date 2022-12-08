@@ -8,6 +8,11 @@ export class GetAllConsentController {
 
     const result = await getAllConsentUseCase.execute();
 
+    if (result.length == 0) {
+      return res
+        .status(404)
+        .send({ message: "There are no consents registered!" });
+    }
     return res.status(201).send(result);
   }
 }

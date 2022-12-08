@@ -39,7 +39,7 @@ model Permissions {
 }
 
 model Consent {
-  consentId            String   @id @unique @default(uuid())
+  consentId            String   @id
   creationDateTime     DateTime @default(now())
   status               String   @default("AWAITING_AUTHORISATION")
   statusUpdateDateTime DateTime @updatedAt

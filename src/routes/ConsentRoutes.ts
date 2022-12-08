@@ -26,9 +26,9 @@ consentRoutes.get("/:id", async (req: Request, res: Response) => {
     },
   });
 
-  // if (!consent) {
-  //   throw new AppError("Consent not found!");
-  // }
+  if (!consent) {
+    return res.status(404).send({ message: "Consent not found!" });
+  }
 
   return res.status(200).send({
     data: consent,
@@ -48,7 +48,7 @@ consentRoutes.get("/:id", async (req: Request, res: Response) => {
   });
 });
 
-consentRoutes.patch("/:id", async (req: Request, res: Response) => {
+consentRoutes.put("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   const { status, permissions } = req.body;
 
@@ -68,7 +68,7 @@ consentRoutes.patch("/:id", async (req: Request, res: Response) => {
   });
 
   if (!consent) {
-    throw new AppError("Consent not found!");
+    return res.status(404).send({ message: "Consent not found!" });
   }
 
   return res.status(200).send({

@@ -8,7 +8,7 @@ const routes = Router();
 
 routes.use("/users", userRoutes);
 routes.use("/businessEntity", businessEntityRoutes);
-routes.use("/consent", consentRoutes)
-routes.use("/permission", permissionRoutes)
+routes.use("/consent", consentRoutes);
+routes.use("/permission", permissionRoutes);
 
 export { routes };
