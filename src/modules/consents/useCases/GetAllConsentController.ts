@@ -11,7 +11,7 @@ export class GetAllConsentController {
     if (result.length == 0) {
       return res
         .status(404)
-        .send({ message: "There are no consents registered!" });
+        .send({ message: "There are no registered consents." });
     }
     return res.status(201).send(result);
   }

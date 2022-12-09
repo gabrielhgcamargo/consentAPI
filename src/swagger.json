@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "ConsentAPI",
-    "description": "dassssssssssssssssssssssssssssssssssssssssssssss - Open Insurance",
+    "description": "ConsentAPI - Open Insurance",
     "contact": {
       "email": "gabriel-henrique.camargo@gft.com"
     },
@@ -10,20 +10,242 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8000/v1",
+      "url": "http://localhost:8000/",
       "description": "Test API"
     }
   ],
   "paths": {
-    "/consents": {
+    "/open-insurance/users/v1": {
       "post": {
-        "summary": "Register a Consent",
-        "description": "This route is responsible for registering new consents. Copy in the response, the value from the field 'tokenParaAutorizacao' to authorise later this consent.",
+        "summary": "Register a User",
+        "description": "This route is responsible for registering new users.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schema/Consent"
+                "type": "object",
+                "properties": {
+                  "CPF": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - CPF already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created with success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "CPF": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/open-insurance/users/v1/login": {
+      "post": {
+        "summary": "User Login",
+        "description": "This route is responsible for User Login, after insert the email and username, you will get the token, it will make possible realize consent requisitions.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized! Incorrect email or password.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Login with success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/open-insurance/businessEntity/v1": {
+      "post": {
+        "summary": "Register a Business Entity",
+        "description": "This route is responsible for registering new business entities.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CNPJ": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - CNPJ already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created with success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "CNPJ": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/open-insurance/consents/v1": {
+      "post": {
+        "summary": "Register a Consent",
+        "description": "This route is responsible for registering new consents. To create, you have authenticate, with the token -> get yours in the LOGIN route.",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "loggedUser": {
+                    "type": "object",
+                    "properties": {
+                      "CPF": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["CPF"]
+                  },
+                  "businessEntity": {
+                    "type": "object",
+                    "properties": {
+                      "CNPJ": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["CNPJ"]
+                  },
+                  "permissions": {
+                    "type": "object",
+                    "properties": {
+                      "productName": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["productName"]
+                  },
+                  "expirationDateTime": {
+                    "type": "DateTime"
+                  },
+                  "transactionFromDateTime": {
+                    "type": "DateTime"
+                  },
+                  "transactionToDateTime": {
+                    "type": "DateTime"
+                  }
+                }
               }
             }
           }
@@ -33,12 +255,107 @@
             "description": "Bad Request - Field(s) with unacceptable value or Invalid CPF."
           },
           "201": {
-            "description": "OK",
+            "description": "Consent Created with success",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/ResponsePOST"
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "consentId": {
+                          "type": "string"
+                        },
+                        "creationDateTime": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "statusUpdateDateTime": {
+                          "type": "string"
+                        },
+                        "expirationDateTime": {
+                          "type": "string"
+                        },
+                        "transactionFromDateTime": {
+                          "type": "string"
+                        },
+                        "transactionToDateTime": {
+                          "type": "string"
+                        },
+                        "userCPF": {
+                          "type": "string"
+                        },
+                        "businessEntityCNPJ": {
+                          "type": "string"
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "productName": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "totalRecords": {
+                          "type": "integer"
+                        },
+                        "requestDateTime": {
+                          "type": "DateTime"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized! Authenticated but the document (cpf) in the params is not yours (authenticated user).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -46,16 +363,23 @@
         }
       },
       "get": {
-        "summary": "Find all authorised consents",
-        "description": "This route is responsible for find all authorised consents.",
+        "summary": "Find all  consents",
+        "description": "This route is responsible for find all  consents.",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK - Find all consents."
+          },
+          "404": {
+            "description": "Not Found - There are no registered consents",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/ConsentResponseWithoutToken"
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -64,27 +388,31 @@
       }
     },
 
-    "/consents/{id}": {
+    "/open-insurance/consents/v1/document/{document}": {
       "get": {
-        "summary": "Find a consent by ID",
-        "description": "This route is responsible for find a authorised consent by ID.",
+        "summary": "Find a consent by Document",
+        "description": "This route is responsible for find a authorised consent by Document.",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
-            "name": "id",
+            "name": "document",
             "in": "path",
             "required": true,
-            "description": "The user ID.",
-            "minimum": 1
+            "description": "The consent Document (CPF)."
           }
         ],
         "responses": {
           "401": {
-            "description": "Unauthorized",
+            "description": "Unauthorized! Authenticated but the document in the path is not yours (authenticated user).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/Message"
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -101,18 +429,131 @@
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Consent found with success",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/ConsentResponseWithoutToken"
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "consentId": {
+                          "type": "string"
+                        },
+                        "creationDateTime": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "statusUpdateDateTime": {
+                          "type": "string"
+                        },
+                        "expirationDateTime": {
+                          "type": "string"
+                        },
+                        "transactionFromDateTime": {
+                          "type": "string"
+                        },
+                        "transactionToDateTime": {
+                          "type": "string"
+                        },
+                        "userCPF": {
+                          "type": "string"
+                        },
+                        "businessEntityCNPJ": {
+                          "type": "string"
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "productName": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "totalRecords": {
+                          "type": "integer"
+                        },
+                        "requestDateTime": {
+                          "type": "DateTime"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/open-insurance/consents/v1/{id}": {
+      "get": {
+        "summary": "Find a consent by ID",
+        "description": "This route is responsible for find a authorised consent by ID.",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The consent ID."
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized! Authenticated but the document in the path is not yours (authenticated user).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request - Only numeric ID in the path!",
+          "404": {
+            "description": "Consent not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -121,17 +562,123 @@
                 }
               }
             }
+          },
+          "200": {
+            "description": "Consent found with success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "consentId": {
+                          "type": "string"
+                        },
+                        "creationDateTime": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "statusUpdateDateTime": {
+                          "type": "string"
+                        },
+                        "expirationDateTime": {
+                          "type": "string"
+                        },
+                        "transactionFromDateTime": {
+                          "type": "string"
+                        },
+                        "transactionToDateTime": {
+                          "type": "string"
+                        },
+                        "userCPF": {
+                          "type": "string"
+                        },
+                        "businessEntityCNPJ": {
+                          "type": "string"
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "productName": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "totalRecords": {
+                          "type": "integer"
+                        },
+                        "requestDateTime": {
+                          "type": "DateTime"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
       "put": {
         "summary": "Find a consent by ID",
-        "description": "This route is responsible for find a authorised consent by ID.",
+        "description": "This route is responsible for change the consent status by ID.",
+        "security": [{ "bearerAuth": [] }],
+
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schema/Consent"
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  },
+                  "permissions": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
               }
             }
           }
@@ -141,40 +688,127 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "The user ID.",
-            "minimum": 1
+            "description": "The consent ID."
           }
         ],
         "responses": {
           "404": {
-            "description": "Consent not found",
+            "description": "Consent not found with the id in the param.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/Message"
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           },
           "200": {
-            "description": "OK",
+            "description": "Consent updated with success",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/Message"
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "consentId": {
+                          "type": "string"
+                        },
+                        "creationDateTime": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "statusUpdateDateTime": {
+                          "type": "string"
+                        },
+                        "expirationDateTime": {
+                          "type": "string"
+                        },
+                        "transactionFromDateTime": {
+                          "type": "string"
+                        },
+                        "transactionToDateTime": {
+                          "type": "string"
+                        },
+                        "userCPF": {
+                          "type": "string"
+                        },
+                        "businessEntityCNPJ": {
+                          "type": "string"
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "productName": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "prev": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "totalRecords": {
+                          "type": "integer"
+                        },
+                        "requestDateTime": {
+                          "type": "DateTime"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request - Only numeric ID in the path!",
+          "401": {
+            "description": "Unauthorized! Authenticated but the document in the path is not yours (authenticated user).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/Message"
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -183,14 +817,14 @@
       },
       "delete": {
         "summary": "Find a consent by ID",
-        "description": "This route is responsible for find a authorised consent by ID.",
+        "description": "This route is responsible for delete a consent by ID.",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "The user ID.",
-            "minimum": 1
+            "description": "The consent ID."
           }
         ],
         "responses": {
@@ -205,47 +839,6 @@
               }
             }
           },
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schema/Message"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - Only numeric ID in the path!",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schema/Message"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-
-    "/consentsAprove/{id}": {
-      "put": {
-        "summary": "Aprove the consent",
-        "description": "This route is responsible for authorise the consent.",
-        "security": [{ "bearerAuth": [] }],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The user ID.",
-            "minimum": 1
-          }
-        ],
-        "responses": {
           "200": {
             "description": "OK",
             "content": {
@@ -258,12 +851,16 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Unauthorized! Authenticated but the document in the path is not yours (authenticated user).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schema/Message"
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -274,57 +871,6 @@
   },
   "components": {
     "schema": {
-      "Consent": {
-        "type": "object",
-        "properties": {
-          "nome": {
-            "type": "string"
-          },
-          "cpf": {
-            "type": "string"
-          },
-          "telefone": {
-            "type": "string"
-          }
-        }
-      },
-      "ResponsePOST": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "tokenParaAutorizacao": {
-            "type": "string"
-          }
-        }
-      },
-      "ConsentResponseWithoutToken": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "nome": {
-            "type": "string"
-          },
-          "cpf": {
-            "type": "string"
-          },
-          "telefone": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      },
       "Message": {
         "type": "object",
         "properties": {

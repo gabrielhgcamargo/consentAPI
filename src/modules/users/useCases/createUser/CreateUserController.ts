@@ -22,6 +22,10 @@ export class CreateUserController {
       return res.status(400).send({ message: "Email already registered." });
     }
 
-    return res.status(201).json(result);
+    return res.status(201).send({
+      CPF: result.CPF,
+      name: result.name,
+      email: result.email,
+    });
   }
 }
