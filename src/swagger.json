@@ -251,7 +251,19 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request - Field(s) with unacceptable value or Invalid CPF."
+            "description": "Bad Request - Field(s) with unacceptable value.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "201": {
             "description": "Consent Created with success",
