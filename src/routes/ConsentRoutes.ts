@@ -12,13 +12,17 @@ const getAllConsentController = new GetAllConsentController();
 
 const consentRoutes = Router();
 
+// POST A CONSENT
 consentRoutes.post(
   "/",
   ensureAuthenticatedCreate,
   createConsentController.handle
 );
+
+// GET ALL CONSENTS
 consentRoutes.get("/", getAllConsentController.handle);
 
+// GET CONSENT BY ID
 consentRoutes.get(
   "/:id",
   ensureAuthenticated,
@@ -51,6 +55,7 @@ consentRoutes.get(
   }
 );
 
+// GET CONSENT BY DOCUMENT
 consentRoutes.get(
   "/document/:document",
   ensureAuthenticatedDocument,
@@ -85,6 +90,7 @@ consentRoutes.get(
   }
 );
 
+// CHANGE STATUS AND PERMISSIONS
 consentRoutes.put(
   "/:id",
   ensureAuthenticated,
@@ -127,6 +133,7 @@ consentRoutes.put(
   }
 );
 
+// DELETE A CONSENT
 consentRoutes.delete(
   "/:id",
   ensureAuthenticated,

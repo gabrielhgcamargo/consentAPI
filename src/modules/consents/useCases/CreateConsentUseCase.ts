@@ -40,27 +40,30 @@ export class CreateConsentUseCase {
     const prefix = "urn:mapfre:";
     const result = uuidv4();
     const completeId = prefix + result;
-    console.log(completeId);
 
-    // create consent
-    await prisma.consent.create({
-      data: {
-        consentId: completeId,
-        loggedUser: {
-          connect: {
-            CPF: cpfExists.CPF,
+    try {
+      // create consent
+      await prisma.consent.create({
+        data: {
+          consentId: completeId,
+          loggedUser: {
+            connect: {
+              CPF: cpfExists.CPF,
+            },
           },
-        },
-        businessEntity: {
-          connect: {
-            CNPJ: cnpjExists.CNPJ,
+          businessEntity: {
+            connect: {
+              CNPJ: cnpjExists.CNPJ,
+            },
           },
+          permissions,
+          expirationDateTime,
+          transactionFromDateTime,
+          transactionToDateTime,
         },
-        permissions,
-        expirationDateTime,
-        transactionFromDateTime,
-        transactionToDateTime,
-      },
-    });
+      });
+    } catch (error) {
+      return "DataTypeNotProvided";
+    }
   }
 }

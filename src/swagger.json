@@ -228,13 +228,12 @@
                     "required": ["CNPJ"]
                   },
                   "permissions": {
-                    "type": "object",
-                    "properties": {
-                      "productName": {
+                    "type": "array",
+                    "items": [
+                      {
                         "type": "string"
                       }
-                    },
-                    "required": ["productName"]
+                    ]
                   },
                   "expirationDateTime": {
                     "type": "DateTime"

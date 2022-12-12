@@ -17,7 +17,7 @@ export class CreateConsentController {
 
     const createConsentUseCase = new CreateConsentUseCase();
 
-    await createConsentUseCase.execute({
+    const consentExecute = await createConsentUseCase.execute({
       loggedUser,
       businessEntity,
       permissions,
@@ -25,6 +25,13 @@ export class CreateConsentController {
       transactionFromDateTime,
       transactionToDateTime,
     });
+
+    if (consentExecute == "DataTypeNotProvided") {
+      return res.status(400).send({
+        message:
+          "A Field is expecting a DateTime value, the provided is String.",
+      });
+    }
 
     const consent = await prisma.consent.findFirst({
       where: {
