@@ -34,13 +34,6 @@ export class CreateConsentController {
         transactionFromDateTime,
         transactionToDateTime,
       },
-      include: {
-        permissions: {
-          select: {
-            productName: true,
-          },
-        },
-      },
     });
 
     if (!consent) {

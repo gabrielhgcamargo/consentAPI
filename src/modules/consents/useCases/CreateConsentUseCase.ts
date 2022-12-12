@@ -56,11 +56,7 @@ export class CreateConsentUseCase {
             CNPJ: cnpjExists.CNPJ,
           },
         },
-        permissions: {
-          create: {
-            productName: permissions.productName,
-          },
-        },
+        permissions,
         expirationDateTime,
         transactionFromDateTime,
         transactionToDateTime,

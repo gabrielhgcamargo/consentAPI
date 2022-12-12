@@ -6,7 +6,7 @@ export interface CreateConsentDTO {
   businessEntity: {
     CNPJ: string;
   };
-  permissions: any;
+  permissions: string[];
   expirationDateTime: string;
   transactionFromDateTime: string;
   transactionToDateTime: string;

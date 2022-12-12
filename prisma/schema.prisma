@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -12,12 +12,11 @@ generator erd {
 }
 
 model User {
-  CPF           String        @id @unique
-  name          String
-  email         String        @unique
-  password      String
-  Consent       Consent[]
-  refresh_token RefreshToken? @relation("refresh_token")
+  CPF      String    @id @unique
+  name     String
+  email    String    @unique
+  password String
+  Consent  Consent[]
 
   @@map("users")
 }
@@ -30,15 +29,6 @@ model BusinessEntity {
   @@map("businessEntities")
 }
 
-model Permissions {
-  id               String   @id @default(uuid())
-  productName      String
-  Consent          Consent? @relation(fields: [consentConsentId], references: [consentId], onDelete: Cascade)
-  consentConsentId String
-
-  @@map("permissions")
-}
-
 model Consent {
   consentId            String   @id
   creationDateTime     DateTime @default(now())
@@ -47,7 +37,7 @@ model Consent {
 
   loggedUser     User           @relation(fields: [userCPF], references: [CPF], onDelete: Cascade)
   businessEntity BusinessEntity @relation(fields: [businessEntityCNPJ], references: [CNPJ], onDelete: Cascade)
-  permissions    Permissions[]
+  permissions    String[]
 
   expirationDateTime      DateTime
   transactionFromDateTime DateTime
@@ -56,13 +46,4 @@ model Consent {
   businessEntityCNPJ      String
 
   @@map("consent")
-}
-
-model RefreshToken {
-  id        String @id @default(uuid())
-  expiresIn Int
-  user      User   @relation("refresh_token", fields: [userId], references: [CPF])
-  userId    String @unique
-
-  @@map("refreshToken")
 }

@@ -4,9 +4,10 @@ import { consentRoutes } from "./ConsentRoutes";
 import { userRoutes } from "./UserRoutes";
 
 const routes = Router();
+const prefix = "/open-insurance";
 
-routes.use("/open-insurance/users/v1", userRoutes);
-routes.use("/open-insurance/businessEntity/v1", businessEntityRoutes);
-routes.use("/open-insurance/consents/v1", consentRoutes);
+routes.use(prefix + "/users/v1", userRoutes);
+routes.use(prefix + "/businessEntity/v1", businessEntityRoutes);
+routes.use(prefix + "/consents/v1", consentRoutes);
 
 export { routes };

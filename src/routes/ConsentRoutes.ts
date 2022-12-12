@@ -26,13 +26,6 @@ consentRoutes.get(
     const { id } = req.params;
     const consent = await prisma.consent.findFirst({
       where: { consentId: String(id) },
-      include: {
-        permissions: {
-          select: {
-            productName: true,
-          },
-        },
-      },
     });
 
     if (!consent) {
@@ -65,13 +58,6 @@ consentRoutes.get(
     const { document } = req.params;
     const consent = await prisma.consent.findFirst({
       where: { userCPF: String(document) },
-      include: {
-        permissions: {
-          select: {
-            productName: true,
-          },
-        },
-      },
     });
 
     if (!consent) {
@@ -118,14 +104,7 @@ consentRoutes.put(
       where: { consentId: id },
       data: {
         status: status,
-        permissions: permissions.productName,
-      },
-      include: {
-        permissions: {
-          select: {
-            productName: true,
-          },
-        },
+        permissions: permissions,
       },
     });
 
