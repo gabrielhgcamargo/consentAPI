@@ -106,6 +106,14 @@ consentRoutes.put(
     const { id } = req.params;
     const { status, permissions } = req.body;
 
+    const verifyIfExists = await prisma.consent.findFirst({
+      where: { consentId: String(id) },
+    });
+
+    if (!verifyIfExists) {
+      return res.status(404).send({ message: "Consent not found!" });
+    }
+
     const consent = await prisma.consent.update({
       where: { consentId: id },
       data: {
@@ -120,10 +128,6 @@ consentRoutes.put(
         },
       },
     });
-
-    if (!consent) {
-      return res.status(404).send({ message: "Consent not found!" });
-    }
 
     return res.status(200).send({
       data: consent,
