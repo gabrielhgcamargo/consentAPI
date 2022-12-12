@@ -22,6 +22,10 @@ export class CreateUserController {
       return res.status(400).send({ message: "Email already registered." });
     }
 
+    if (result == "cpfNotValid") {
+      return res.status(400).send({ message: "CPF not valid." });
+    }
+
     return res.status(201).send({
       CPF: result.CPF,
       name: result.name,
