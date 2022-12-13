@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
-    "start": "prisma migrate dev --name insert db tables && watch node_modules src/server.ts"
+    "start": "npx prisma migrate dev --name create db structure && tsx watch src/server.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
