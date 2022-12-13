@@ -12,8 +12,6 @@ export async function ensureAuthenticatedDocument(
   const userCpf = request.params;
   const documentParam = userCpf["document"];
 
-  console.log(userCpf);
-
   const cpfExists = await prisma.user.findFirst({
     where: {
       CPF: documentParam,

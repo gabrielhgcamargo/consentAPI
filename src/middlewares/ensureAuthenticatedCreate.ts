@@ -12,8 +12,6 @@ export async function ensureAuthenticatedCreate(
   const userCpf = request.body;
   const documentBody = userCpf["loggedUser"]["CPF"];
 
-  console.log(documentBody);
-
   const cpfExists = await prisma.user.findFirst({
     where: {
       CPF: documentBody,
