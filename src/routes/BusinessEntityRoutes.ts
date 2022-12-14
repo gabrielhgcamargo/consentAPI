@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CreateBusinessEntityController } from "../modules/businessEntity/useCases/createUser/createBusinessEntityController";
+import { CreateBusinessEntityController } from "../modules/businessEntity/useCases/createUser/CreateBusinessEntityController";
 
 const createBusinessEntityController = new CreateBusinessEntityController();
 
