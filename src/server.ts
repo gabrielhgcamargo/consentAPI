@@ -1,8 +1,8 @@
 import express from "express";
 import { routes } from "./routes";
 import "express-async-errors";
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocs = require("./swagger.json");
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./swagger.json";
 
 const app = express();
 app.use(express.json());
