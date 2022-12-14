@@ -676,7 +676,7 @@
       },
       "put": {
         "tags": ["Consent"],
-        "summary": "Find a consent by ID",
+        "summary": "Change the consent status and permissions by ID.",
         "description": "This route is responsible for change the consent status by ID.",
         "security": [{ "bearerAuth": [] }],
 
@@ -836,7 +836,7 @@
       },
       "delete": {
         "tags": ["Consent"],
-        "summary": "Find a consent by ID",
+        "summary": "Delete a consent by ID",
         "description": "This route is responsible for delete a consent by ID.",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
