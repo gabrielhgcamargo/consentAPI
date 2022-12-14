@@ -17,6 +17,7 @@
   "paths": {
     "/open-insurance/users/v1": {
       "post": {
+        "tags": ["User"],
         "summary": "Register a User",
         "description": "This route is responsible for registering new users.",
         "requestBody": {
@@ -85,6 +86,7 @@
 
     "/open-insurance/users/v1/login": {
       "post": {
+        "tags": ["User"],
         "summary": "User Login",
         "description": "This route is responsible for User Login, after insert the email and username, you will get the token, it will make possible realize consent requisitions.",
         "requestBody": {
@@ -141,6 +143,7 @@
 
     "/open-insurance/businessEntity/v1": {
       "post": {
+        "tags": ["BusinessEntity"],
         "summary": "Register a Business Entity",
         "description": "This route is responsible for registering new business entities.",
         "requestBody": {
@@ -200,6 +203,7 @@
 
     "/open-insurance/consents/v1": {
       "post": {
+        "tags": ["Consent"],
         "summary": "Register a Consent",
         "description": "This route is responsible for registering new consents. To create, you have authenticate, with the token -> get yours in the LOGIN route.",
         "security": [{ "bearerAuth": [] }],
@@ -401,6 +405,7 @@
 
     "/open-insurance/consents/v1/document/{document}": {
       "get": {
+        "tags": ["Consent"],
         "summary": "Find a consent by Document",
         "description": "This route is responsible for find a authorised consent by Document.",
         "security": [{ "bearerAuth": [] }],
@@ -536,6 +541,7 @@
 
     "/open-insurance/consents/v1/{id}": {
       "get": {
+        "tags": ["Consent"],
         "summary": "Find a consent by ID",
         "description": "This route is responsible for find a authorised consent by ID.",
         "security": [{ "bearerAuth": [] }],
@@ -668,6 +674,7 @@
         }
       },
       "put": {
+        "tags": ["Consent"],
         "summary": "Find a consent by ID",
         "description": "This route is responsible for change the consent status by ID.",
         "security": [{ "bearerAuth": [] }],
@@ -827,6 +834,7 @@
         }
       },
       "delete": {
+        "tags": ["Consent"],
         "summary": "Find a consent by ID",
         "description": "This route is responsible for delete a consent by ID.",
         "security": [{ "bearerAuth": [] }],
