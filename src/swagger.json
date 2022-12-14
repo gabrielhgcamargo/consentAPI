@@ -378,6 +378,7 @@
         }
       },
       "get": {
+        "tags": ["Consent"],
         "summary": "Find all  consents",
         "description": "This route is responsible for find all  consents.",
         "responses": {
