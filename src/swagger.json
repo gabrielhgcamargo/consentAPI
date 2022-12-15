@@ -458,8 +458,8 @@
     "/open-insurance/consents/v1/document/{document}": {
       "get": {
         "tags": ["Consent"],
-        "summary": "Find a consent by Document",
-        "description": "This route is responsible for find a authorised consent by Document.",
+        "summary": "Find a consent by CPF",
+        "description": "This route is responsible for find a authorised consent by CPF from the user.",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
