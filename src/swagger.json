@@ -711,6 +711,12 @@
                       "DAMAGES_AND_PEOPLE_RESPONSIBILITY_CLAIM_READ"
                     ]
                   }
+                },
+                "authoriseConsentNotFilled": {
+                  "value": {
+                    "status": "",
+                    "permissions": [""]
+                  }
                 }
               }
             }
