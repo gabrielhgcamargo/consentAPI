@@ -43,9 +43,9 @@
               "examples": {
                 "UserPost - Example": {
                   "value": {
-                    "CPF": "134.881.450-00",
-                    "name": "Wesley Araujo",
-                    "email": "wesley-araujo@gft.com",
+                    "CPF": "840.961.540-16",
+                    "name": "Wesley Santos",
+                    "email": "wesley-santos@gft.com",
                     "password": "password123"
                   }
                 }
@@ -116,7 +116,7 @@
               "examples": {
                 "Login - Example": {
                   "value": {
-                    "email": "wesley-araujo@gft.com",
+                    "email": "wesley-santos@gft.com",
                     "password": "password123"
                   }
                 }
@@ -181,7 +181,7 @@
               "examples": {
                 "BusinessEntityPost - Example": {
                   "value": {
-                    "CNPJ": "58.070.049/0001-09",
+                    "CNPJ": "12.877.211/0001-96",
                     "name": "MAPFRE"
                   }
                 }
@@ -280,10 +280,10 @@
                 "ConsentPost - Example": {
                   "value": {
                     "loggedUser": {
-                      "CPF": "134.881.450-00"
+                      "CPF": "840.961.540-16"
                     },
                     "businessEntity": {
-                      "CNPJ": "58.070.049/0001-09"
+                      "CNPJ": "12.877.211/0001-96"
                     },
                     "permissions": [
                       "DAMAGES_AND_PEOPLE_OIL_CLAIM_READ",
@@ -466,7 +466,7 @@
             "name": "document",
             "in": "path",
             "required": true,
-            "description": "The consent Document (CPF)."
+            "description": "The user Document (CPF)."
           }
         ],
         "responses": {
