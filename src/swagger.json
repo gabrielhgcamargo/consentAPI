@@ -39,6 +39,16 @@
                     "type": "string"
                   }
                 }
+              },
+              "examples": {
+                "UserPost - Example": {
+                  "value": {
+                    "CPF": "134.881.450-00",
+                    "name": "Wesley Araujo",
+                    "email": "wesley-araujo@gft.com",
+                    "password": "password123"
+                  }
+                }
               }
             }
           }
@@ -102,6 +112,14 @@
                     "type": "string"
                   }
                 }
+              },
+              "examples": {
+                "Login - Example": {
+                  "value": {
+                    "email": "wesley-araujo@gft.com",
+                    "password": "password123"
+                  }
+                }
               }
             }
           }
@@ -157,6 +175,14 @@
                   },
                   "name": {
                     "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "BusinessEntityPost - Example": {
+                  "value": {
+                    "CNPJ": "58.070.049/0001-09",
+                    "name": "MAPFRE"
                   }
                 }
               }
@@ -247,6 +273,31 @@
                   },
                   "transactionToDateTime": {
                     "type": "DateTime"
+                  }
+                }
+              },
+              "examples": {
+                "ConsentPost - Example": {
+                  "value": {
+                    "loggedUser": {
+                      "CPF": "134.881.450-00"
+                    },
+                    "businessEntity": {
+                      "CNPJ": "58.070.049/0001-09"
+                    },
+                    "permissions": [
+                      "DAMAGES_AND_PEOPLE_OIL_CLAIM_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_POLICYINFO_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_PREMIUM_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_CLAIM_READ",
+                      "DAMAGES_AND_PEOPLE_TRANSPORT_READ",
+                      "DAMAGES_AND_PEOPLE_TRANSPORT_POLICYINFO_READ",
+                      "DAMAGES_AND_PEOPLE_TRANSPORT_PREMIUM_READ"
+                    ],
+                    "expirationDateTime": "2022-10-22T08:30:00Z",
+                    "transactionFromDateTime": "2021-01-01T00:00:00Z",
+                    "transactionToDateTime": "2021-02-01T23:59:59Z"
                   }
                 }
               }
