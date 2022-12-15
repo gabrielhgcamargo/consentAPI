@@ -676,7 +676,7 @@
       },
       "put": {
         "tags": ["Consent"],
-        "summary": "Change the consent status and permissions by ID.",
+        "summary": "Change the consent status by ID.",
         "description": "This route is responsible for change the consent status by ID.",
         "security": [{ "bearerAuth": [] }],
 
@@ -695,6 +695,20 @@
                       {
                         "type": "string"
                       }
+                    ]
+                  }
+                }
+              },
+              "examples": {
+                "authoriseConsent": {
+                  "value": {
+                    "status": "AUTHORISED",
+                    "permissions": [
+                      "DAMAGES_AND_PEOPLE_OIL_CLAIM_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_POLICYINFO_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_PREMIUM_READ",
+                      "DAMAGES_AND_PEOPLE_RESPONSIBILITY_CLAIM_READ"
                     ]
                   }
                 }
