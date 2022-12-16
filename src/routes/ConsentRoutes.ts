@@ -139,12 +139,16 @@ consentRoutes.delete(
     if (!test) {
       return res.status(404).send({ message: "Consent not found!" });
     }
-    const consent = await prisma.consent.delete({
+    const consent = await prisma.consent.update({
       where: { consentId: String(id) },
+      data: {
+        status: "REJECTED",
+      },
     });
 
     return res.status(200).send({
-      message: "Consent with the ID = " + id + " deleted with success.",
+      message:
+        "Consent with the ID = " + id + " changed the status to 'REJECTED'.",
     });
   }
 );

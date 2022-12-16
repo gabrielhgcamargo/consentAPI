@@ -907,8 +907,8 @@
       },
       "delete": {
         "tags": ["Consent"],
-        "summary": "Delete a consent by ID",
-        "description": "This route is responsible for delete a consent by ID.",
+        "summary": "Change the consent status to REJECTED by ID",
+        "description": "This route is responsible for change the consent status to REJECTED, by the consent ID.",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
